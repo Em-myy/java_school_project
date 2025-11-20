@@ -32,7 +32,7 @@ public class CgpaController {
         return new CgpaResponse(studentName, formattedCgpa, getMessage(cgpa));
     }
 
-    private int convertGrade(double grade) {
+    private double convertGrade(double grade) {
         if(grade >= 70 & grade <= 100) {
             return grade = 5;
         } else if (grade >= 60 & grade <= 69) {
