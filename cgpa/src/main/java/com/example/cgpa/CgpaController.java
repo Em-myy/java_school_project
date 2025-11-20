@@ -5,9 +5,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cgpa")
+@CrossOrigin(origins = "*")
 
 public class CgpaController {
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/calculate")
 
     public CgpaResponse calculateCgpa(@RequestBody CgpaRequest request) {
