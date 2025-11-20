@@ -13,4 +13,5 @@ public class CgpaResponse {
 
     public String getStudentName() { return studentName; }
     public String getCgpa() { return cgpa; }
+    public String getMessage() { return message; }
 }

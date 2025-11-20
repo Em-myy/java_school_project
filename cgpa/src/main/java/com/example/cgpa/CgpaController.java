@@ -14,12 +14,12 @@ public class CgpaController {
         String studentName = request.getStudentName();
         List<CourseDetail> courses = request.getCourses();
 
-        double gradePoints = convertGrade(course.getCourseGrade());
+        
         double totalPoints = 0;
         double totalUnits = 0;
-        String message;
 
         for (CourseDetail course : courses) {
+            double gradePoints = convertGrade(course.getCourseGrade());
             totalPoints += gradePoints * course.getCourseUnit();
             totalUnits += course.getCourseUnit();
         }
@@ -29,7 +29,7 @@ public class CgpaController {
         
         String formattedCgpa = String.format("%.2f", cgpa);
 
-        return new CgpaResponse(studentName, formattedCgpa, getMessage(cgpa));
+        return new CgpaResponse(studentName, formattedCgpa, getMessage(cgpa, studentName));
     }
 
     private double convertGrade(double grade) {
@@ -48,18 +48,17 @@ public class CgpaController {
         }
     }
 
-    private String getMessage(double cgpa) {
-        if(cgpa >= 4.50 & cgpa <= 5.00) {
-            return message = "Congratulations " + studentName + ". You are a first class student";
-        } else if (cgpa >= 3.50 & cgpa <= 4.49) {
-            return message = "Congratulations " + studentName + ". You are a second class upper student";
-        } else if(cgpa >= 2.40 & cgpa <= 3.49) {
-            return message = "Congratulations " + studentName + ". You are a second class lower student";
-        }
-        else if(cgpa >= 1.50 & cgpa <= 2.39) {
-            return message = "Congratulations " + studentName + ". You are a third class student";
+    private String getMessage(double cgpa, String studentName) {
+        if (cgpa >= 4.50 && cgpa <= 5.00) {
+            return "Congratulations " + studentName + ". You are a first class student";
+        } else if (cgpa >= 3.50 && cgpa <= 4.49) {
+            return "Congratulations " + studentName + ". You are a second class upper student";
+        } else if (cgpa >= 2.40 && cgpa <= 3.49) {
+            return "Congratulations " + studentName + ". You are a second class lower student";
+        } else if (cgpa >= 1.50 && cgpa <= 2.39) {
+            return "Congratulations " + studentName + ". You are a third class student";
         } else {
-            return message = "You passed";
+            return "You passed";
         }
     }
 };
