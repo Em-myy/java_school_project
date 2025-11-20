@@ -1,0 +1,71 @@
+/* Default mobile styles (hidden overlay) */
+.sideMenu {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Start fully off-screen */
+  width: 85%;
+  max-width: 400px;
+  height: 100%;
+  padding: 2rem;
+  z-index: 900;
+  
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(35px); /* Further Increased blur */
+  -webkit-backdrop-filter: blur(35px);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  
+  transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex; /* Use flex for content alignment */
+  flex-direction: column;
+}
+
+.sideMenu.open {
+  right: 0; /* Slide in */
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.menuContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space out items inside */
+}
+
+.menuButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.menuButton:hover {
+  background-color: #c82333;
+}
+
+/* Desktop styles (static sidebar) */
+@media (min-width: 769px) {
+  .sideMenu {
+    position: static; /* No longer fixed */
+    right: auto;
+    top: auto;
+    width: auto; /* Width will be controlled by flexbox */
+    max-width: none;
+    height: auto;
+    flex: 0 0 35%; /* Takes 35% of the container width */
+    
+    background: none; /* Desktop doesn't have the glass overlay */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+    
+    transition: none; /* No transition needed for static element */
+    
+    /* Ensure content is visible */
+    display: block !important; 
+  }
+}

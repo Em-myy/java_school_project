@@ -42,4 +42,4 @@ const calculateCGPA = async (data) => {
   //   }
 };
 
-export default calculateCGPA();
+export default calculateCGPA;

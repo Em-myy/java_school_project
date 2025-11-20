@@ -1,0 +1,89 @@
+.cgpaResultPanel {
+  flex: 1; /* Takes less space on desktop */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+}
+
+.cgpaResultPanel h3 {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+}
+
+.cgpaValue {
+  font-size: 4rem; /* Large font size for CGPA */
+  font-weight: 700;
+  color: #00ffc8; /* Bright green for the result */
+  text-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
+  margin-bottom: 10px;
+}
+
+.cgpaMessage {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Modal for mobile result */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  padding: 30px;
+  max-width: 90%;
+  width: 350px;
+  position: relative;
+  text-align: center;
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  transition: color 0.3s ease;
+}
+
+.modalCloseBtn:hover {
+  color: var(--purple-btn-bg);
+}
+
+.modalContent .cgpaValue {
+  font-size: 3.5rem; /* Slightly smaller in modal */
+}
+
+.modalContent .cgpaMessage {
+  font-size: 1.1rem;
+}
