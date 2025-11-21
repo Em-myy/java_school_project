@@ -1,17 +1,22 @@
 import React from 'react';
 import styles from './SideMenu.module.css';
 
-const SideMenu = ({ isOpen, onReset, children, isMobile }) => {
-  // On mobile, don't render the component at all if it's not open.
-  if (isMobile && !isOpen) {
-    return null;
-  }
+const SideMenu = ({ isOpen, onCloseMenu, showAboutSection, setShowAboutSection }) => {
+
+  const handleHowItWorksClick = () => {
+    setShowAboutSection(prev => !prev);
+    onCloseMenu(); // Close the side menu after clicking
+  };
 
   return (
     <div className={`${styles.sideMenu} ${isOpen ? styles.open : ''}`}>
       <div className={styles.menuContent}>
-        {children}
-        <button onClick={onReset} className={styles.menuButton}>Reset Form</button>
+        <a href="#how-it-works" className={styles.menuLink} onClick={handleHowItWorksClick}>
+          How it Works {showAboutSection ? '▲' : '▼'}
+        </a>
+        <a href="#calculate-cgpa" className={styles.menuLink} onClick={onCloseMenu}>
+          Calculate Now
+        </a>
       </div>
     </div>
   );

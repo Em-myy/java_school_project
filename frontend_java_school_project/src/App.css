@@ -44,21 +44,32 @@ body {
 @media (min-width: 768px) {
   .App {
     background-image: url("./assets/desktop-background-image.png");
+    padding: 30px; /* Add some padding on desktop */
+    align-items: flex-start; /* Center the container on desktop */
+  }
+
+  .container {
+    max-width: none; /* Remove max-width on desktop */
+    width: 100%; /* Ensure it takes full width */
+    height: 100%; /* Ensure it takes full height */
+    border-radius: 20px; /* Maintain border-radius for aesthetic */
+    padding: 40px; /* Adjust padding for desktop */
   }
 }
 
 .container {
   display: flex;
   flex-direction: column; /* Main container is now for vertical stacking of title + content */
-  background: var(--glass-bg);
+  /* background: var(--glass-bg);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
-  box-shadow: 0 8px 32px var(--glass-shadow);
+  box-shadow: 0 8px 32px var(--glass-shadow); */
   padding: 30px;
-  max-width: 1200px;
+  max-width: 5500px; /* Keep max-width for smaller desktops before full-width */
   width: 100%;
+  height: auto;
 }
 
 .contentWrapper {
@@ -71,6 +82,33 @@ body {
 .mainContent {
   flex: 1;
   min-width: 0; /* Prevents flex items from overflowing */
+}
+
+.desktopLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.aboutContainer,
+.formContainer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  padding: 30px;
+}
+
+.aboutContainer.hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .aboutContainer.hidden {
+    display: block; /* Always show on desktop */
+  }
 }
 
 h1 {

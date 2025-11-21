@@ -1,9 +1,13 @@
 import React from "react";
 import styles from "./About.module.css";
 
-const About = () => {
+const About = ({ isMobileView }) => {
   return (
-    <div className={styles.aboutSection}>
+    <div
+      className={`${styles.aboutSection} ${
+        isMobileView ? styles.showOnMobile : ""
+      }`}
+    >
       <h2>How It Works</h2>
       <p>
         This CGPA Calculator helps you determine your Cumulative Grade Point
@@ -37,6 +41,9 @@ const About = () => {
         Your data is automatically saved in your browser, so you can come back
         and continue where you left off.
       </p>
+      <a href="#calculate-cgpa" className={styles.ctaButton}>
+        Get started now and take control of your academic journey!
+      </a>
     </div>
   );
 };

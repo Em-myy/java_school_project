@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Suspense, lazy } from "react";
+import React, { useState, useCallback, Suspense, lazy } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import "./App.css";
 import CgpaForm from "./components/CgpaForm/CgpaForm";
@@ -7,9 +7,10 @@ import Header from "./layout/Header/Header";
 import SideMenu from "./layout/SideMenu/SideMenu";
 import { useCourses } from "./hooks/useCourses";
 import { useWindowSize } from "./hooks/useWindowSize";
+import ConfirmationDialog from "./components/ConfirmationDialog/ConfirmationDialog";
 
 const Result = lazy(() => import("./components/Result/Result"));
-const About = lazy(() => import("./components/About/About"));
+const About = lazy(() => import("./layout/About/About"));
 
 function App() {
   const { width } = useWindowSize();
@@ -32,17 +33,37 @@ function App() {
   const [error, setError] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState(null);
+  const [showAboutSection, setShowAboutSection] = useState(false); // New state for About section
 
   const toggleMenu = useCallback(() => {
     setMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   }, []);
 
   const handleResetForm = useCallback(() => {
-    setStudentName("");
-    setCoursesFromReset([]);
-    setCgpaResult(null);
-    setError(null);
-    setMenuOpen(false);
+    setShowConfirmationDialog(true);
+    setConfirmationAction(() => () => {
+      setStudentName("");
+      setCoursesFromReset([]);
+      setCgpaResult(null);
+      setError(null);
+      setMenuOpen(false);
+      toast.success("Form has been reset!");
+      setShowConfirmationDialog(false);
+      setShowAboutSection(false); // Hide About section on reset
+    });
+  }, [setCoursesFromReset]);
+
+  const handleConfirm = useCallback(() => {
+    if (confirmationAction) {
+      confirmationAction();
+    }
+  }, [confirmationAction]);
+
+  const handleCancel = useCallback(() => {
+    setShowConfirmationDialog(false);
+    setConfirmationAction(null);
   }, []);
 
   const handleSaveAll = useCallback(() => {
@@ -110,28 +131,46 @@ function App() {
       <div className="container">
         <h1>CGPA Master</h1>
         <div className="contentWrapper">
-          <SideMenu
-            isOpen={isMenuOpen}
-            onReset={handleResetForm}
-            isMobile={isMobile}
-          >
-            <Suspense fallback={<div>Loading About...</div>}>
-              <About />
-            </Suspense>
-          </SideMenu>
-          <main className="mainContent">
-            <CgpaForm
-              studentName={studentName}
-              setStudentName={setStudentName}
-              courses={courses}
-              addCourse={addCourse}
-              removeCourse={removeCourse}
-              updateCourse={updateCourse}
-              toggleEditCourse={toggleEditCourse}
-              onCalculate={handleCalculateCgpa}
-              onSaveAll={handleSaveAll}
-              loading={loading}
+          {isMobile && isMenuOpen && (
+            <SideMenu
+              isOpen={isMenuOpen}
+              isMobile={isMobile}
+              onCloseMenu={toggleMenu}
+              showAboutSection={showAboutSection}
+              setShowAboutSection={setShowAboutSection}
             />
+          )}
+          <main className="mainContent">
+            <div className="desktopLayout">
+              <div
+                className={`aboutContainer ${
+                  isMobile && !showAboutSection ? "hidden" : ""
+                }`}
+              >
+                <section id="how-it-works">
+                  <Suspense fallback={<div>Loading About...</div>}>
+                    <About onReset={handleResetForm} />
+                  </Suspense>
+                </section>
+              </div>
+              <div className="formContainer">
+                <section id="calculate-cgpa">
+                  <CgpaForm
+                    studentName={studentName}
+                    setStudentName={setStudentName}
+                    courses={courses}
+                    addCourse={addCourse}
+                    removeCourse={removeCourse}
+                    updateCourse={updateCourse}
+                    toggleEditCourse={toggleEditCourse}
+                    onCalculate={handleCalculateCgpa}
+                    onSaveAll={handleSaveAll}
+                    onReset={handleResetForm} // Pass handleResetForm here
+                    loading={loading}
+                  />
+                </section>
+              </div>
+            </div>
             {cgpaResult !== null && !isMobile && (
               <Suspense fallback={<div>Loading Result...</div>}>
                 <Result cgpa={cgpaResult} cgpaMessage={cgpaMessage} />
@@ -152,6 +191,14 @@ function App() {
           />
         </Suspense>
       )}
+
+      <ConfirmationDialog
+        isOpen={showConfirmationDialog}
+        title="Confirm Reset"
+        message="Are you sure you want to reset the form? All your data will be lost."
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
     </div>
   );
 }

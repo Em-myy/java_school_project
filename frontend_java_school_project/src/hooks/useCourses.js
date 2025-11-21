@@ -1,4 +1,4 @@
-import { useReducer, useCallback, useEffect } from 'react';
+import { useReducer, useCallback } from 'react';
 
 const coursesReducer = (state, action) => {
   switch (action.type) {

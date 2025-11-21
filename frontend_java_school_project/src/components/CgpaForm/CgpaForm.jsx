@@ -28,6 +28,7 @@ const CgpaForm = memo(
     updateCourse,
     toggleEditCourse,
     onSaveAll,
+    onReset, // Add onReset prop
   }) => {
     const [openMenuId, setOpenMenuId] = useState(null);
 
@@ -39,6 +40,10 @@ const CgpaForm = memo(
 
     const handleSave = (id) => {
       const courseToSave = courses.find((c) => c.id === id);
+      if (!courseToSave.name || !courseToSave.unit || !courseToSave.grade) {
+        toast.error("Course name, units, and grade cannot be empty.");
+        return;
+      }
       if (courseToSave && parseInt(courseToSave.grade, 10) > 100) {
         toast.error("Grade cannot be higher than 100.");
         return; // Stop the save
@@ -96,7 +101,7 @@ const CgpaForm = memo(
                 disabled={!course.isEditing}
               />
               <input
-                type="number"
+                type="text"
                 min="0"
                 aria-label="Grade"
                 placeholder="Grade"
@@ -167,10 +172,13 @@ const CgpaForm = memo(
         <div className={styles.formActions}>
           <button
             onClick={onCalculate}
-            disabled={loading}
+            disabled={loading || courses.length < 3}
             className={styles.calculateBtn}
           >
             {loading ? "Calculating..." : "Calculate CGPA Now"}
+          </button>
+          <button onClick={onReset} className={styles.resetFormBtn}>
+            Reset Form
           </button>
         </div>
       </div>

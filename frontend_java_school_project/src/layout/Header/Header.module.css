@@ -1,32 +1,35 @@
 .appHeader {
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 2rem; /* Add horizontal padding */
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between; /* Separate title and nav */
+  align-items: center; /* Vertically align items */
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0; /* Align to the left */
   z-index: 1000;
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  text-decoration: none; /* In case it becomes a link later */
+  display: none; /* Hidden by default for mobile */
 }
 
 .hamburgerMenu {
   background: none;
   border: none;
   cursor: pointer;
-  display: none; /* Hide by default */
+  display: flex; /* Show by default on mobile */
   flex-direction: column;
   justify-content: space-around;
   width: 2rem;
   height: 2rem;
   padding: 0;
   z-index: 10;
-}
-
-/* Show hamburger on mobile */
-@media (max-width: 768px) {
-  .hamburgerMenu {
-    display: flex;
-  }
+  order: 2; /* Place hamburger on the right on mobile */
 }
 
 .hamburgerLine {
@@ -50,4 +53,44 @@
 
 .open .hamburgerLine:nth-child(3) {
   transform: translateY(-0.4rem) rotate(-45deg);
+}
+
+.desktopNav {
+  display: none; /* Hidden by default for mobile */
+  order: 1; /* Place nav on the left on desktop */
+}
+
+.desktopNav a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.desktopNav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .hamburgerMenu {
+    display: none; /* Hide hamburger on desktop */
+  }
+
+  .headerTitle {
+    display: block; /* Show title on desktop */
+  }
+
+  .desktopNav {
+    display: flex; /* Show desktop nav */
+    align-items: center;
+    gap: 20px;
+  }
+
+  .appHeader {
+    justify-content: space-between; /* Align title left, nav right */
+  }
 }
