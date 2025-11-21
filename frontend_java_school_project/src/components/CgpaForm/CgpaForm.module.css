@@ -30,7 +30,7 @@
 .courseItem input:nth-child(2), /* Units */
 .courseItem input:nth-child(3) { /* Grade */
   flex: 1;
-  max-width: 80px; /* Smaller width for units and grade */
+  max-width: 90px; /* Adjusted width for units and grade */
   text-align: center;
 }
 
@@ -113,4 +113,25 @@
 .saveAllBtn:hover {
   background-color: var(--purple-btn-bg);
   color: white;
+}
+
+.editingActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: #ff6b6b; /* A reddish color */
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
+}
+
+.deleteBtn:hover {
+  color: #ff4757;
 }

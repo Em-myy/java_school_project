@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, Suspense, lazy } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import "./App.css";
 import CgpaForm from "./components/CgpaForm/CgpaForm";
 import calculateCGPA from "./services/api";
@@ -17,15 +18,23 @@ function App() {
   const [studentName, setStudentName] = useState(() => {
     return localStorage.getItem("studentName") || "";
   });
-  const { courses, addCourse, removeCourse, updateCourse, toggleEditCourse, setCoursesFromReset } = useCourses();
+  const {
+    courses,
+    addCourse,
+    removeCourse,
+    updateCourse,
+    toggleEditCourse,
+    setCoursesFromReset,
+  } = useCourses();
   const [cgpaResult, setCgpaResult] = useState(null);
+  const [cgpaMessage, setCgpaMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showResultModal, setShowResultModal] = useState(false); // State for mobile result modal
+  const [showResultModal, setShowResultModal] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
-    setMenuOpen(prevIsMenuOpen => !prevIsMenuOpen);
+    setMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   }, []);
 
   const handleResetForm = useCallback(() => {
@@ -33,13 +42,13 @@ function App() {
     setCoursesFromReset([]);
     setCgpaResult(null);
     setError(null);
-    setMenuOpen(false); // Close menu after resetting
+    setMenuOpen(false);
   }, []);
 
   const handleSaveAll = useCallback(() => {
     localStorage.setItem("studentName", studentName);
     localStorage.setItem("courses", JSON.stringify(courses));
-    alert("Your data has been saved!"); // Optional: provide feedback to the user
+    toast.success("Your data has been saved!");
   }, [studentName, courses]);
 
   const handleCalculateCgpa = useCallback(async () => {
@@ -56,6 +65,7 @@ function App() {
       };
       const response = await calculateCGPA(payload);
       setCgpaResult(parseFloat(response.cgpa));
+      setCgpaMessage(response.message);
       if (isMobile) {
         setShowResultModal(true); // Show modal on mobile
       }
@@ -71,13 +81,38 @@ function App() {
 
   return (
     <div className="App">
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          success: {
+            style: {
+              background: "var(--glass-bg)",
+              color: "var(--text-color)",
+              boxShadow: "0 8px 32px var(--glass-shadow)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid var(--glass-border)",
+            },
+          },
+          error: {
+            style: {
+              background: "var(--glass-bg)",
+              color: "var(--text-color)",
+              boxShadow: "0 8px 32px var(--glass-shadow)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid var(--glass-border)",
+            },
+          },
+        }}
+      />
       <Header onMenuClick={toggleMenu} isMenuOpen={isMenuOpen} />
       <div className="container">
         <h1>CGPA Master</h1>
         <div className="contentWrapper">
-          <SideMenu 
-            isOpen={isMenuOpen} 
-            onReset={handleResetForm} 
+          <SideMenu
+            isOpen={isMenuOpen}
+            onReset={handleResetForm}
             isMobile={isMobile}
           >
             <Suspense fallback={<div>Loading About...</div>}>
@@ -99,7 +134,7 @@ function App() {
             />
             {cgpaResult !== null && !isMobile && (
               <Suspense fallback={<div>Loading Result...</div>}>
-                <Result cgpa={cgpaResult} />
+                <Result cgpa={cgpaResult} cgpaMessage={cgpaMessage} />
               </Suspense>
             )}
             {error && <p className="error-message">{error}</p>}
@@ -111,6 +146,7 @@ function App() {
         <Suspense fallback={<div>Loading Result...</div>}>
           <Result
             cgpa={cgpaResult}
+            cgpaMessage={cgpaMessage}
             onClose={() => setShowResultModal(false)}
             isModal={true}
           />

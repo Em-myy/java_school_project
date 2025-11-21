@@ -1,4 +1,5 @@
 import React, { useState, memo, useRef } from "react";
+import toast from "react-hot-toast";
 import styles from "./CgpaForm.module.css";
 import CourseActionsMenu from "../CourseActionsMenu/CourseActionsMenu";
 import useOnClickOutside from "../../hooks/useOncllickOutside";
@@ -37,6 +38,11 @@ const CgpaForm = memo(
     useOnClickOutside(menuRef, () => setOpenMenuId(null));
 
     const handleSave = (id) => {
+      const courseToSave = courses.find((c) => c.id === id);
+      if (courseToSave && parseInt(courseToSave.grade, 10) > 100) {
+        toast.error("Grade cannot be higher than 100.");
+        return; // Stop the save
+      }
       toggleEditCourse(id, false);
       setOpenMenuId(null);
       if (onSaveAll) onSaveAll();
@@ -103,12 +109,21 @@ const CgpaForm = memo(
 
               <div className={styles.courseItemActions}>
                 {course.isEditing ? (
-                  <button
-                    onClick={() => handleSave(course.id)}
-                    className={styles.saveBtn}
-                  >
-                    Save
-                  </button>
+                  <div className={styles.editingActions}>
+                    <button
+                      onClick={() => handleSave(course.id)}
+                      className={styles.saveBtn}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => removeCourse(course.id)}
+                      className={styles.deleteBtn}
+                      aria-label="Remove Course"
+                    >
+                      &times;
+                    </button>
+                  </div>
                 ) : (
                   <button
                     onClick={(e) => {
