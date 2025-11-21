@@ -39,10 +39,9 @@ public class CgpaController {
             case "A": return 5;
             case "B": return 4;
             case "C": return 3;
-            case "D": return 4;
+            case "D": return 2;
             case "E": return 1;
             case "F": return 0;
-            default: return 0;
         }
 
         double value;
@@ -58,13 +57,15 @@ public class CgpaController {
             return 4;
         } else if((value >= 50 && value <= 59) || (value == 3)) {
             return 3;
-        } else if((value >= 40 && value <= 49) || (value == 2)) {
+        } else if((value >= 45 && value <= 49) || (value == 2)) {
             return 2;
-        } else if((value >= 30 && value <= 39) || (value == 1)) {
+        } else if((value >= 40 && value <= 44) || (value == 1)) {
             return 1;
-        } else if((value >= 6 && value <= 29) || (value == 0)) {
+        } else if((value >= 6 && value <= 39) || (value == 0)) {
             return 0;
         }
+
+        return 0;
     }
 
     private String getMessage(double cgpa, String studentName) {
