@@ -33,20 +33,37 @@ public class CgpaController {
     }
 
     private double convertGrade(String grade) {
-        if((Double.parseDouble(grade)>= 70 & Double.parseDouble(grade) <= 100) | (Double.parseDouble(grade) == 5) | (grade == "A") | (grade == "a")) {
-            return grade = (double) 5;
-        } else if ((Double.parseDouble(grade) >= 60 & Double.parseDouble(grade) <= 69) | (Double.parseDouble(grade) == 4) | (grade == "B") | (grade == "b")) {
-            return grade = (double) 4;
-        } else if ((Double.parseDouble(grade) >= 50 & Double.parseDouble(grade) <= 59) | (Double.parseDouble(grade) == 3) | (grade == "C") | (grade == "c")) {
-            return grade = (double) 3;
-        } else if((Double.parseDouble(grade) >= 40 & Double.parseDouble(grade) <= 49) | (Double.parseDouble(grade) == 2) | (grade == "D") | (grade == "d")) {
-            return grade = (double) 2;
-        } else if((Double.parseDouble(grade) >= 30 & Double.parseDouble(grade) <= 39) | (Double.parseDouble(grade) == 1) | (grade == "E") | (grade == "e")) {
-            return grade = (double) 1;
-        } else if((Double.parseDouble(grade) >= 6 & Double.parseDouble(grade) <= 29) | (Double.parseDouble(grade) == 0) | (grade == "F") | (grade == "f")) {
-            return grade = (double) 0;
-        } else {
-            return grade = (double) 0;
+        grade = grade.trim().toUpperCase();
+
+        switch(grade) {
+            case "A": return 5;
+            case "B": return 4;
+            case "C": return 3;
+            case "D": return 4;
+            case "E": return 1;
+            case "F": return 0;
+            default: return 0;
+        }
+
+        double value;
+        try {
+            value = Double.parseDouble(grade);
+        } catch(Exception e) {
+            return 0;
+        }
+
+        if((value >= 70 && value <= 100) || (value == 5)) {
+            return 5;
+        } else if((value >= 60 && value <= 69) || (value == 4)) {
+            return 4;
+        } else if((value >= 50 && value <= 59) || (value == 3)) {
+            return 3;
+        } else if((value >= 40 && value <= 49) || (value == 2)) {
+            return 2;
+        } else if((value >= 30 && value <= 39) || (value == 1)) {
+            return 1;
+        } else if((value >= 6 && value <= 29) || (value == 0)) {
+            return 0;
         }
     }
 
