@@ -30,7 +30,7 @@ body {
 
   display: flex;
   justify-content: center;
-  align-items: center; /* Revert to center for vertical alignment */
+  align-items: flex-start; /* Align container to the top */
 
   background-image: url("./assets/mobile-background-image.png");
   background-size: cover;
@@ -51,8 +51,8 @@ body {
   display: flex;
   flex-direction: column; /* Main container is now for vertical stacking of title + content */
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   box-shadow: 0 8px 32px var(--glass-shadow);
