@@ -32,20 +32,40 @@ public class CgpaController {
         return new CgpaResponse(studentName, formattedCgpa, getMessage(cgpa, studentName));
     }
 
-    private double convertGrade(double grade) {
-        if(grade >= 70 & grade <= 100) {
-            return grade = 5;
-        } else if (grade >= 60 & grade <= 69) {
-            return grade = 4;
-        } else if (grade >= 50 & grade <= 59) {
-            return grade = 3;
-        } else if(grade >= 40 & grade <= 49) {
-            return grade = 2;
-        } else if(grade >= 30 & grade <= 39) {
-            return grade = 1;
-        } else {
-            return grade = 0;
+    private double convertGrade(String grade) {
+        grade = grade.trim().toUpperCase();
+
+        switch(grade) {
+            case "A": return 5;
+            case "B": return 4;
+            case "C": return 3;
+            case "D": return 2;
+            case "E": return 1;
+            case "F": return 0;
         }
+
+        double value;
+        try {
+            value = Double.parseDouble(grade);
+        } catch(Exception e) {
+            return 0;
+        }
+
+        if((value >= 70 && value <= 100) || (value == 5)) {
+            return 5;
+        } else if((value >= 60 && value <= 69) || (value == 4)) {
+            return 4;
+        } else if((value >= 50 && value <= 59) || (value == 3)) {
+            return 3;
+        } else if((value >= 45 && value <= 49) || (value == 2)) {
+            return 2;
+        } else if((value >= 40 && value <= 44) || (value == 1)) {
+            return 1;
+        } else if((value >= 6 && value <= 39) || (value == 0)) {
+            return 0;
+        }
+
+        return 0;
     }
 
     private String getMessage(double cgpa, String studentName) {
