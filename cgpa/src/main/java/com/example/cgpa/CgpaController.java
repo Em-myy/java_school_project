@@ -32,19 +32,21 @@ public class CgpaController {
         return new CgpaResponse(studentName, formattedCgpa, getMessage(cgpa, studentName));
     }
 
-    private double convertGrade(double grade) {
-        if(grade >= 70 & grade <= 100) {
-            return grade = 5;
-        } else if (grade >= 60 & grade <= 69) {
-            return grade = 4;
-        } else if (grade >= 50 & grade <= 59) {
-            return grade = 3;
-        } else if(grade >= 40 & grade <= 49) {
-            return grade = 2;
-        } else if(grade >= 30 & grade <= 39) {
-            return grade = 1;
+    private double convertGrade(String grade) {
+        if((Double.parseDouble(grade)>= 70 & Double.parseDouble(grade) <= 100) | (Double.parseDouble(grade) == 5) | (grade == "A") | (grade == "a")) {
+            return grade = (double) 5;
+        } else if ((Double.parseDouble(grade) >= 60 & Double.parseDouble(grade) <= 69) | (Double.parseDouble(grade) == 4) | (grade == "B") | (grade == "b")) {
+            return grade = (double) 4;
+        } else if ((Double.parseDouble(grade) >= 50 & Double.parseDouble(grade) <= 59) | (Double.parseDouble(grade) == 3) | (grade == "C") | (grade == "c")) {
+            return grade = (double) 3;
+        } else if((Double.parseDouble(grade) >= 40 & Double.parseDouble(grade) <= 49) | (Double.parseDouble(grade) == 2) | (grade == "D") | (grade == "d")) {
+            return grade = (double) 2;
+        } else if((Double.parseDouble(grade) >= 30 & Double.parseDouble(grade) <= 39) | (Double.parseDouble(grade) == 1) | (grade == "E") | (grade == "e")) {
+            return grade = (double) 1;
+        } else if((Double.parseDouble(grade) >= 6 & Double.parseDouble(grade) <= 29) | (Double.parseDouble(grade) == 0) | (grade == "F") | (grade == "f")) {
+            return grade = (double) 0;
         } else {
-            return grade = 0;
+            return grade = (double) 0;
         }
     }
 
