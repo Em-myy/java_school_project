@@ -11,10 +11,10 @@ public class CgpaController {
     @PostMapping("/calculate")
 
     public CgpaResponse calculateCgpa(@RequestBody CgpaRequest request) {
+        try {
         String studentName = request.getStudentName();
         List<CourseDetail> courses = request.getCourses();
 
-        
         double totalPoints = 0;
         double totalUnits = 0;
 
@@ -25,11 +25,14 @@ public class CgpaController {
         }
 
         double cgpa = totalPoints / totalUnits;
-
-        
         String formattedCgpa = String.format("%.2f", cgpa);
 
         return new CgpaResponse(studentName, formattedCgpa, getMessage(cgpa, studentName));
+
+    } catch (Exception e) {
+        e.printStackTrace();  // <-- print the exact error
+        return new CgpaResponse("", "0.0", "Error calculating CGPA: " + e.getMessage());
+    }
     }
 
     private double convertGrade(String grade) {
