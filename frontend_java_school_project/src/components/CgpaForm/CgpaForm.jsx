@@ -28,7 +28,7 @@ const CgpaForm = memo(
     updateCourse,
     toggleEditCourse,
     onSaveAll,
-    onReset, // Add onReset prop
+    onReset,
   }) => {
     const [openMenuId, setOpenMenuId] = useState(null);
 
@@ -172,7 +172,7 @@ const CgpaForm = memo(
         <div className={styles.formActions}>
           <button
             onClick={onCalculate}
-            disabled={loading || courses.length < 3}
+            disabled={loading || courses.length < 1}
             className={styles.calculateBtn}
           >
             {loading ? "Calculating..." : "Calculate"}

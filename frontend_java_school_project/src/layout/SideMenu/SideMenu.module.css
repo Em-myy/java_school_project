@@ -41,19 +41,67 @@
 .menuLink {
   display: block;
   width: 100%;
-  /* padding: 15px 20px; */
   text-decoration: none;
   text-align: center;
   color: white;
-  /* background-color: var(--glass-bg); */
-  /* border-radius: 8px; */
   font-weight: 600;
   transition: background-color 0.3s ease;
-  /* box-sizing: border-box; */
 }
 
 .menuLink:hover {
   background-color: var(--purple-btn-hover);
+}
+
+.dropdownContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
+
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin: 0;
+}
+
+.dropdownContent.show {
+  max-height: 800px;
+  opacity: 1;
+}
+
+.innerText {
+  padding: 15px;
+  color: white;
+  font-size: 0.9rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.innerText ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.innerText li {
+  margin-bottom: 8px;
+}
+
+.innerCtaButton {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid white;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.innerCtaButton:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: var(--purple-btn-hover);
 }
 
 /* Desktop styles (static sidebar) */
