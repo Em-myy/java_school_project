@@ -175,7 +175,7 @@ const CgpaForm = memo(
             disabled={loading || courses.length < 3}
             className={styles.calculateBtn}
           >
-            {loading ? "Calculating..." : "Calculate CGPA Now"}
+            {loading ? "Calculating..." : "Calculate"}
           </button>
           <button onClick={onReset} className={styles.resetFormBtn}>
             Reset Form

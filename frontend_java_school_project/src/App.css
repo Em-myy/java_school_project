@@ -55,19 +55,24 @@ body {
     border-radius: 20px; /* Maintain border-radius for aesthetic */
     padding: 40px; /* Adjust padding for desktop */
   }
+
+  #how-it-works {
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var()--text-color;
+    padding: 0.7rem;
+  }
 }
 
 .container {
   display: flex;
   flex-direction: column; /* Main container is now for vertical stacking of title + content */
-  /* background: var(--glass-bg);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px var(--glass-shadow); */
   padding: 30px;
-  max-width: 5500px; /* Keep max-width for smaller desktops before full-width */
+  max-width: 1500px;
   width: 100%;
   height: auto;
 }
@@ -87,7 +92,7 @@ body {
 .desktopLayout {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 200px;
 }
 
 .aboutContainer,
@@ -98,7 +103,6 @@ body {
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   box-shadow: 0 8px 32px var(--glass-shadow);
-  padding: 30px;
 }
 
 .aboutContainer.hidden {

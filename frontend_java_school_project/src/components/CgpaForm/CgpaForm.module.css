@@ -4,7 +4,8 @@
   flex-direction: column;
 }
 
-.studentDetails, .courseList {
+.studentDetails,
+.courseList {
   margin-bottom: 20px;
   padding: 20px;
   background: var(--glass-bg);
@@ -26,9 +27,12 @@
   margin-bottom: 0; /* Override default margin */
 }
 
-.courseItem input:nth-child(1) { flex: 3; } /* Course Name */
+.courseItem input:nth-child(1) {
+  flex: 3;
+} /* Course Name */
 .courseItem input:nth-child(2), /* Units */
-.courseItem input:nth-child(3) { /* Grade */
+.courseItem input:nth-child(3) {
+  /* Grade */
   flex: 1;
   max-width: 90px; /* Adjusted width for units and grade */
   text-align: center;
@@ -85,11 +89,12 @@
 
 .calculateBtn {
   background-color: var(--purple-btn-bg);
-  color: white;
+  color: var(--text-color);
   margin-top: 20px;
   padding: 15px 20px;
   font-size: 1.1rem;
   font-weight: 600;
+  flex-grow: 1;
 }
 .calculateBtn:hover {
   background-color: var(--purple-btn-hover);
@@ -102,23 +107,10 @@
   margin-top: 20px;
 }
 
-.calculateBtn {
-  background-color: var(--purple-btn-bg);
-  color: white;
-  padding: 15px 20px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  flex-grow: 1; /* Allow it to take available space */
-}
-
-.calculateBtn:hover {
-  background-color: var(--purple-btn-hover);
-}
-
 .resetFormBtn {
-  background-color: transparent;
-  border: 1px solid var(--glass-border);
+  background-color: #c20909;
   color: var(--text-color);
+  margin-top: 20px;
   padding: 15px 20px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -126,7 +118,7 @@
 }
 
 .resetFormBtn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #ff6b6ba8;
   border-color: rgba(255, 255, 255, 0.3);
 }
 

@@ -1,12 +1,12 @@
 .appHeader {
-  width: 100%;
+  width: 20%;
   padding: 1rem 2rem; /* Add horizontal padding */
   display: flex;
   justify-content: space-between; /* Separate title and nav */
   align-items: center; /* Vertically align items */
   position: absolute;
   top: 0;
-  left: 0; /* Align to the left */
+  right: 0; /* Align to the left */
   z-index: 1000;
 }
 
@@ -29,7 +29,7 @@
   height: 2rem;
   padding: 0;
   z-index: 10;
-  order: 2; /* Place hamburger on the right on mobile */
+  order: 5; /* Place hamburger on the right on mobile */
 }
 
 .hamburgerLine {
@@ -73,7 +73,6 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-
 /* Desktop styles */
 @media (min-width: 769px) {
   .hamburgerMenu {
@@ -92,5 +91,6 @@
 
   .appHeader {
     justify-content: space-between; /* Align title left, nav right */
+    width: 100%;
   }
 }
