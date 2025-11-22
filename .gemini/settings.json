@@ -1,0 +1,8 @@
+{
+  "ui": {
+    "showStatusInTitle": true
+  },
+  "general": {
+    "previewFeatures": true
+  }
+}

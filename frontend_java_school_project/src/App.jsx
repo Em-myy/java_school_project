@@ -81,7 +81,7 @@ function App() {
         courses: courses.map((course) => ({
           courseName: course.name,
           courseUnit: parseInt(course.unit),
-          courseGrade: parseInt(course.grade),
+          courseGrade: course.grade,
         })),
       };
       const response = await calculateCGPA(payload);

@@ -1,20 +1,27 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback } from "react";
 
 const coursesReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_COURSE':
-      return [...state, { id: Date.now(), name: '', unit: '', grade: '', isEditing: true }];
-    case 'REMOVE_COURSE':
-      return state.filter(course => course.id !== action.payload);
-    case 'UPDATE_COURSE':
-      return state.map(course =>
-        course.id === action.payload.id ? { ...course, [action.payload.field]: action.payload.value } : course
+    case "ADD_COURSE":
+      return [
+        ...state,
+        { id: Date.now(), name: "", unit: "", grade: "", isEditing: true },
+      ];
+    case "REMOVE_COURSE":
+      return state.filter((course) => course.id !== action.payload);
+    case "UPDATE_COURSE":
+      return state.map((course) =>
+        course.id === action.payload.id
+          ? { ...course, [action.payload.field]: action.payload.value }
+          : course
       );
-    case 'TOGGLE_EDIT_COURSE':
-      return state.map(course =>
-        course.id === action.payload.id ? { ...course, isEditing: action.payload.isEditing } : course
+    case "TOGGLE_EDIT_COURSE":
+      return state.map((course) =>
+        course.id === action.payload.id
+          ? { ...course, isEditing: action.payload.isEditing }
+          : course
       );
-    case 'SET_COURSES':
+    case "SET_COURSES":
       return action.payload;
     default:
       return state;
@@ -35,26 +42,24 @@ export const useCourses = () => {
     return [];
   });
 
-
-
   const addCourse = useCallback(() => {
-    dispatch({ type: 'ADD_COURSE' });
+    dispatch({ type: "ADD_COURSE" });
   }, []);
 
   const removeCourse = useCallback((id) => {
-    dispatch({ type: 'REMOVE_COURSE', payload: id });
+    dispatch({ type: "REMOVE_COURSE", payload: id });
   }, []);
 
   const updateCourse = useCallback((id, field, value) => {
-    dispatch({ type: 'UPDATE_COURSE', payload: { id, field, value } });
+    dispatch({ type: "UPDATE_COURSE", payload: { id, field, value } });
   }, []);
-  
+
   const toggleEditCourse = useCallback((id, isEditing) => {
-    dispatch({ type: 'TOGGLE_EDIT_COURSE', payload: { id, isEditing } });
+    dispatch({ type: "TOGGLE_EDIT_COURSE", payload: { id, isEditing } });
   }, []);
 
   const setCoursesFromReset = useCallback((newCourses) => {
-    dispatch({ type: 'SET_COURSES', payload: newCourses });
+    dispatch({ type: "SET_COURSES", payload: newCourses });
   }, []);
 
   return {
@@ -63,6 +68,6 @@ export const useCourses = () => {
     removeCourse,
     updateCourse,
     toggleEditCourse,
-    setCoursesFromReset
+    setCoursesFromReset,
   };
 };
